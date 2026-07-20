@@ -1,0 +1,306 @@
+# Product Requirements Document (PRD)
+## Enterprise Finance Intelligence Platform (EFIP)
+
+**Document Owner:** Sreeram — Product Owner / Finance Transformation Lead
+**Status:** Draft v2.0
+**Related:** [Transformation Charter](../docs/00-transformation-charter.md) · [Backlog](backlog.md)
+
+---
+
+## 1. Executive Summary
+
+EFIP is an AI-augmented finance intelligence platform that helps CFOs, Finance Directors, FP&A teams, Controllers, and Supply Chain Finance leaders move from *reporting what happened* to *understanding and acting on why it happened*. It pairs a governed financial data layer with an AI reasoning layer to automate variance analysis, answer natural-language financial questions, and surface forward-looking insight — while preserving the auditability and control finance teams require.
+
+This document defines what is being built, for whom, why it matters, and how success will be measured. It is the product-management backbone of the EFIP Finance Transformation program, sitting between the Transformation Charter (why the program exists) and the Backlog (how it gets executed).
+
+## 2. Vision
+
+> **Give every finance leader a real-time, AI-augmented co-pilot that turns financial data into decisions — not just reports.**
+
+EFIP exists to close the distance between data and judgment. Not by replacing finance professionals' judgment with automation, but by removing the manual labor that currently sits *between* the data and that judgment — so the time finance teams spend is spent deciding, not assembling.
+
+## 3. Mission
+
+To build and prove, as a fully documented transformation program, that an AI reasoning layer — grounded strictly in governed financial data — can materially reduce the time and effort required to explain variance, answer financial questions, and prepare board-ready insight, without compromising the auditability that finance mandates.
+
+## 4. Business Case
+
+**The cost of the status quo:**
+- Month-end close cycles of 5–10 days driven by manual reconciliation
+- FP&A analysts spend the majority of close-adjacent time explaining variance *after the fact*, rather than modeling forward
+- Financial insight is fragmented across ERP, budgeting tools, and spreadsheets with no single governed source of truth
+- Forecasts are frequently trend extrapolations rather than driver-based models, reducing their value to leadership
+
+**The opportunity:**
+- Automating variance narrative generation directly reduces analyst hours spent on repetitive explanation work
+- A natural-language interface over financial data lowers the barrier for non-finance business leaders to self-serve answers, reducing ad hoc requests to FP&A
+- A single governed data layer with AI narrative on top improves the speed and consistency of board/executive reporting
+- Documenting an auditable AI-grounding approach positions the organization (and the program owner) as a credible practitioner of responsible AI in finance — a differentiator as finance functions face pressure to adopt AI without a governance model
+
+**Why now:** LLM-based reasoning has reached a point where grounded, cited financial narrative generation is achievable without enterprise-scale infrastructure, making this a viable demonstration program even at solo/portfolio scale — while the underlying architecture and governance patterns transfer directly to enterprise deployment.
+
+## 5. Objectives
+
+Mapped to the program-level OKRs in the Transformation Charter, the product-specific objectives are:
+
+1. **Reduce time-to-insight** for variance explanation from manual/reactive to automated/proactive
+2. **Prove AI grounding works** — zero fabricated figures across an evaluated set of AI-generated outputs
+3. **Deliver role-relevant views** — a CFO/Board view and an FP&A analyst view over the same governed data, each fit for its audience
+4. **Establish a reusable governance pattern** — human review sits explicitly in the workflow before AI narrative becomes "final"
+
+## 6. Product Principles
+
+These principles guide every subsequent product decision in this document:
+
+1. **Grounded over generative** — AI explains and narrates real data; it never invents a figure. If the data isn't there, the system says so.
+2. **Auditable by default** — every AI output carries a traceable link to its source data.
+3. **Human-in-the-loop for anything board-facing** — AI drafts, a human approves before anything reaches an executive view.
+4. **One vertical slice before broad shallow coverage** — ship one workflow end-to-end before adding breadth.
+5. **Role-appropriate, not one-size-fits-all** — a CFO and an FP&A analyst need different views of the same truth.
+6. **Documented decisions, not just documented features** — every non-trivial architectural or product choice is recorded with its rationale (ADRs), not just its outcome.
+
+## 7. Personas
+
+| Persona | Role | Core Need | Primary View |
+|---|---|---|---|
+| **CFO** | Executive sponsor / consumer | Real-time, trustworthy financial narrative for the board | Executive Dashboard |
+| **Finance Director** | Owns transformation outcomes | Faster close, better forecasting accuracy | Executive Dashboard |
+| **FP&A Analyst** | Power user | Less manual variance chasing, more scenario modeling | Analyst Workbench |
+| **Controller** | Compliance & accuracy owner | Auditable, governed data — automation without losing control | Analyst Workbench + Audit Trail |
+| **Supply Chain Finance Lead** | Cross-functional user | Cost/margin visibility tied to operational drivers | Executive Dashboard (filtered) |
+| **Business Leader (non-finance)** | Casual consumer | Plain-language answers, not spreadsheets | NL Query Interface |
+
+## 8. Current Pain Points
+
+| Pain Point | Who Feels It | Impact |
+|---|---|---|
+| Manual month-end close reconciliation | Controllers, Finance Directors | 5–10 day close cycles |
+| Reactive variance analysis | FP&A Analysts | Explanations produced after the fact, under time pressure |
+| Fragmented data sources | CFOs, Finance Directors | No single source of truth; reconciliation overhead |
+| Trend-line forecasting | CFOs, Supply Chain Finance | Forecasts lack driver-based rigor |
+| Insight buried in raw data | Business Leaders | Numbers without narrative; repeated ad hoc requests to FP&A |
+| No governed way to use AI in finance | Controllers, CFOs | AI adoption stalls without an auditable grounding model |
+
+## 9. Future State
+
+With EFIP in place:
+- Variance is explained automatically, with narrative generated the moment data is flagged — not days later
+- Any authorized user can ask a financial question in plain language and get a grounded, cited answer
+- The CFO opens a dashboard and sees KPI trends *with* a written narrative explaining the "why," ready for board use
+- FP&A analysts spend their time reviewing and refining AI-drafted commentary and running scenarios — not assembling first drafts from scratch
+- Every AI-generated statement in the system can be traced back to the source transactions that produced it
+- Nothing reaches an executive view without passing through a human review checkpoint
+
+## 10. User Journey
+
+**Example: FP&A Analyst — Monthly Variance Review**
+
+1. Period closes; data lands in the governed data layer
+2. System calculates budget-vs-actual variance by cost center and flags variances exceeding threshold
+3. Analyst opens the Analyst Workbench, sees flagged variances with AI-drafted narrative attached
+4. Analyst reviews each narrative against source data (one click to drill into underlying transactions)
+5. Analyst accepts, edits, or rejects each narrative; edits are logged separately from AI-original text
+6. Approved narratives flow into the Executive Dashboard, tagged as reviewed
+7. CFO opens the dashboard ahead of a board meeting, reads the narrative alongside KPI trends — no manual assembly required
+
+**Example: Business Leader — Ad Hoc Question**
+
+1. Business leader opens the NL Query Interface and asks: *"What drove the increase in COGS in Q2?"*
+2. System retrieves grounded data relevant to the query
+3. System returns a plain-language answer with citations to the underlying data
+4. If the system cannot ground an answer in available data, it says so explicitly rather than guessing
+
+## 11. Product Modules
+
+| Module | Purpose |
+|---|---|
+| **Data Ingestion & Governance Layer** | Ingests GL/budget/forecast data; maintains canonical model and lineage |
+| **Variance & Analysis Engine** | Calculates budget-vs-actual variance; applies flagging thresholds |
+| **AI Narrative Generator** | Produces grounded, cited variance commentary |
+| **Natural-Language Query Interface** | Answers ad hoc financial questions in plain language, grounded in data |
+| **Executive Dashboard** | CFO/Board-facing KPI + narrative view |
+| **Analyst Workbench** | FP&A-facing drill-down, review, edit, and annotation interface |
+| **Audit & Review Layer** | Logs source references, tracks human review/approval state |
+| **Forecast Assist (stretch)** | Driver-based forecast suggestions, clearly flagged as AI-assisted estimates |
+
+## 12. Functional Requirements
+
+### 12.1 Data Layer
+- FR1: System shall ingest structured financial data (GL, budget, forecast, cost center) from file/sample sources
+- FR2: System shall maintain a canonical data model mapping GL accounts to cost centers and budget lines
+- FR3: System shall preserve data lineage — every stored figure traceable to its source record
+
+### 12.2 Variance & Analysis
+- FR4: System shall calculate budget-vs-actual variance by cost center and period
+- FR5: System shall flag variances exceeding a configurable threshold for narrative generation
+- FR6: System shall generate AI narrative commentary explaining flagged variances, grounded only in retrieved data
+
+### 12.3 AI / Natural Language
+- FR7: System shall accept natural-language questions about financial data and return grounded answers with source citations
+- FR8: System shall clearly label AI-generated content as such, distinct from source data
+- FR9: System shall reject or flag queries it cannot answer from available grounded data, rather than fabricating a response
+
+### 12.4 Presentation
+- FR10: System shall provide an executive dashboard view (summary KPIs + narrative)
+- FR11: System shall provide an analyst workbench view (drill-down, editable commentary)
+- FR12: Analyst-edited commentary shall be distinguishable from AI-original commentary in the audit trail
+
+### 12.5 Governance
+- FR13: All AI outputs shall log the source data references used to generate them
+- FR14: System shall support a review/approval step before AI commentary is treated as "final" in the executive view
+
+## 13. Non-Functional Requirements
+
+| Category | Requirement |
+|---|---|
+| **Auditability** | Every AI-generated statement must be traceable to source data references |
+| **Explainability** | AI outputs must state what data and period they're grounded in |
+| **Performance** | Dashboard queries return within a few seconds at sample scale |
+| **Reliability** | Variance calculations must be deterministic and reproducible from source data |
+| **Usability** | Executive view requires no training to read; analyst view assumes finance domain familiarity |
+| **Portability** | Runs at local/demo scale; not dependent on a specific enterprise ERP |
+| **Documentation** | Every architecturally significant choice recorded as an ADR |
+
+## 14. AI Requirements
+
+- AIR1: All AI-generated financial narrative must be grounded in retrieved source data — no output may state a figure that does not trace to an underlying record
+- AIR2: The system must distinguish, in its own output, between what is retrieved fact and what is AI-generated interpretation
+- AIR3: When source data is insufficient to answer a query, the system must say so rather than produce a plausible-sounding but ungrounded answer
+- AIR4: AI narrative generation must cite the specific data (accounts, cost centers, period) it used
+- AIR5: AI-assisted forecasts (stretch scope) must be visually and textually distinguished from actuals and from human-reviewed commentary
+- AIR6: Every AI feature must have a documented evaluation approach — a defined rubric or test set used to judge output quality before it's considered "working"
+- AIR7: Human review is required before AI-generated commentary is surfaced in the Executive Dashboard (see FR14)
+
+## 15. Security
+
+*(Documented conceptually at this program's scale; full implementation is out of scope for the MVP — see Non-Goals in Section 20.)*
+
+- Role-based access: Executive view, Analyst view, and Admin/config access should be logically separated
+- Data-at-rest and data-in-transit protection are assumed requirements for any production deployment, documented as an ADR even where not fully implemented at demo scale
+- No production authentication/SSO is built for this program; the architecture should note where it would plug in (e.g., SSO/OIDC integration point) without implementing it
+- Audit logs (source-of-truth references, review/approval actions) must be tamper-evident in design intent, even if not enforced at demo scale
+- AI query interface must not have the ability to write back to source financial data — read-only by design
+
+## 16. Data Architecture
+
+*(Full detail to be developed in Phase 2 — Enterprise Architecture; summarized here for product context.)*
+
+```
+[ Source Data: GL / Budget / Forecast (sample/file-based) ]
+                    ↓
+       [ Governed Data Layer — canonical model, lineage ]
+                    ↓
+     [ Variance & Analysis Engine ]  ←→  [ AI Reasoning Layer ]
+                    ↓
+      [ Audit & Review Layer — logs, approval state ]
+                    ↓
+   [ Presentation: Executive Dashboard | Analyst Workbench | NL Query ]
+```
+
+Key data architecture principles:
+- Single canonical model for GL accounts, cost centers, budget and forecast lines
+- Every derived figure (variance, AI narrative) retains a reference back to its source records
+- AI reasoning layer only reads from the governed layer — never a raw or ungoverned source
+- Full reference architecture and technology choices to be finalized and recorded as ADRs in Phase 2
+
+## 17. Reporting
+
+Two primary reporting surfaces, both drawing from the same governed data and audit layer:
+
+- **Executive/Board Reporting** — KPI trends plus AI-generated (human-reviewed) narrative, formatted for board consumption; period-over-period comparison
+- **Analyst/Operational Reporting** — full variance detail by cost center, drill-down to transaction level, edit/annotation history
+
+Both surfaces must clearly indicate: reporting period, data as-of date, and review/approval status of any AI-generated content shown.
+
+## 18. KPIs
+
+| KPI | Definition | Target |
+|---|---|---|
+| Variance narrative accuracy | Rubric-scored: correct, grounded, board-ready | Passes defined quality rubric on sample data |
+| NL query grounding rate | % of answered queries with zero fabricated figures | 100% on evaluated query set |
+| Time-to-insight | Manual baseline vs. EFIP-assisted, on a comparable example | Directionally faster, documented with a before/after case |
+| Review-to-approval time | Time from AI draft to analyst approval | Tracked as a delivery metric once workbench is built |
+| End-to-end vertical slice | Demoable data → variance → narrative → dashboard flow | Achieved by MVP (Phase 4) |
+
+## 19. Product Roadmap
+
+| Phase | Focus | Key Deliverable |
+|---|---|---|
+| 0 | Transformation Charter | Charter document |
+| 1 | Product Foundation | This PRD + backlog |
+| 2 | Enterprise Architecture | Reference architecture + ADRs |
+| 3 | Agile Delivery Setup | Sprint cadence, DoD/DoR |
+| 4 | MVP Build | Variance vertical slice |
+| 5 | AI Layer Expansion | NL query, analyst workbench |
+| 6 | Portfolio & Narrative | Public repo, LinkedIn series, interview stories |
+
+## 20. MVP
+
+The MVP is **one vertical slice**, not partial breadth across all modules:
+
+> Sample GL + budget data → variance calculation → AI-generated narrative commentary (grounded, cited) → Executive Dashboard view, with a basic human review step before the narrative is marked final.
+
+**Non-Goals for this program (not just the MVP):**
+- Replacing the ERP or general ledger system of record
+- Multi-entity/multi-currency statutory consolidation
+- Regulatory filing automation (SOX, IFRS submissions)
+- Production-grade multi-tenant security/SSO
+
+Explicitly excluded from MVP scope specifically: natural-language query interface, full analyst workbench editing UI, forecast assist. These are sequenced into v1.1+ once the grounding and narrative approach is proven end-to-end.
+
+## 21. Release Plan
+
+| Release | Scope |
+|---|---|
+| **MVP (Phase 4)** | Variance vertical slice: data → analysis → AI narrative → dashboard, with basic review step |
+| **v1.1 (Phase 5a)** | Natural-language query interface |
+| **v1.2 (Phase 5b)** | Full FP&A analyst workbench — drill-down, edit/annotate, audit trail |
+| **v1.3 (stretch)** | Driver-based forecast assist |
+
+## 22. Risks
+
+| Risk | Mitigation |
+|---|---|
+| AI grounding fails on edge cases (ambiguous or missing data) | Define explicit "insufficient data" response behavior (AIR3); test against an evaluation set before calling a feature done |
+| Scope creep — this could expand into "build all of finance" | Strict phase gates; MVP vertical slice before any breadth |
+| Solo delivery pace variability | Flexible sprint cadence; program designed to pause/resume cleanly between phases |
+| Security/governance documented but not fully built could be seen as superficial | Be explicit in all documentation about what is implemented vs. conceptually documented, and why (demo-scale rationale) |
+| Sample data may not stress-test AI grounding realistically | Deliberately include messy/ambiguous sample records to test AIR3 behavior, not just clean happy-path data |
+
+## 23. Assumptions
+
+- Sample/synthetic financial data is sufficient to demonstrate the product's value and AI grounding approach; live ERP integration is not required for this program
+- A solo builder can credibly run and document each Agile phase (charter, roadmap, architecture, sprints) without a team, using the artifacts themselves as evidence of process
+- The audience for the eventual portfolio (interviewers, LinkedIn network) values documented reasoning and governance thinking as much as, or more than, raw feature count
+- LLM-based reasoning, appropriately grounded and constrained, is capable of producing finance-appropriate narrative without fine-tuning, for this program's scope
+
+## 24. Dependencies
+
+- Availability of realistic sample/synthetic GL, budget, and forecast data
+- Access to an LLM API (or equivalent) capable of grounded, citation-aware generation
+- Phase 2 (Enterprise Architecture) must finalize the data model and tech stack before Phase 4 (MVP Build) can begin in earnest
+- Phase 3 (Agile Delivery Setup) defines the Definition of Done referenced throughout this PRD's FR/AIR acceptance criteria
+
+## 25. Acceptance Criteria
+
+The MVP (Section 20) is considered accepted when:
+
+- [ ] Sample GL + budget data loads into the governed data layer with preserved lineage (FR1–FR3)
+- [ ] Variance is calculated correctly for a known test dataset with expected values verified manually (FR4–FR5)
+- [ ] AI-generated narrative is produced for at least 3 distinct flagged-variance scenarios, each citing correct source data (FR6, AIR1, AIR4)
+- [ ] At least one deliberately "insufficient data" scenario is tested and correctly triggers a non-fabricated response (AIR3)
+- [ ] A human review/approval step exists and must be completed before narrative appears as "final" in the Executive Dashboard (FR14, AIR7)
+- [ ] Executive Dashboard renders KPI trend + approved narrative for the test dataset (FR10)
+- [ ] Every AI output in the demo can be traced, on request, back to its source data reference (FR13)
+
+## 26. Appendix
+
+- **Related documents:** [Transformation Charter](../docs/00-transformation-charter.md), [Backlog](backlog.md), [Architecture Decision Records](../docs/architecture/adrs/)
+- **Glossary:**
+  - *Grounded output* — AI-generated content that is derived strictly from retrieved source data, with no fabricated figures
+  - *Vertical slice* — a thin, complete implementation of one workflow end-to-end, across all layers, rather than partial coverage of many workflows
+  - *WSJF* — Weighted Shortest Job First, a prioritization method (cost of delay ÷ job size) used in the backlog
+  - *ADR* — Architecture Decision Record, a short document capturing the context, decision, alternatives, and consequences of a significant technical choice
+- **Revision history:**
+  - v1.0 — Initial PRD (flat structure)
+  - v2.0 — Restructured into 26-section format per program documentation standard
